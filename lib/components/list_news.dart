@@ -6,7 +6,7 @@ import 'package:novosti/screens/info_screen.dart';
 
 
 class ListNews extends StatefulWidget{
-  final Model array;
+  final Modell array;
   ListNews(this.array);
   @override
   _ListNews createState() =>_ListNews();
@@ -18,7 +18,7 @@ class _ListNews extends State<ListNews> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.of(context).push(_createRoute(widget.array));
+        // Navigator.of(context).push(_createRoute(widget.array));
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -29,7 +29,7 @@ class _ListNews extends State<ListNews> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(widget.array.pictures![0])
+                  image: NetworkImage(widget.array.logo!)
                 )
               ),
             ),
@@ -42,7 +42,7 @@ class _ListNews extends State<ListNews> {
                   SizedBox( 
                     height: 50,
                     width: 280,
-                    child: Text(widget.array.name!, style: TaskText.regular16, softWrap: true, overflow: TextOverflow.ellipsis,)),
+                    child: Text(widget.array.title!, style: TaskText.regular16, softWrap: true, overflow: TextOverflow.ellipsis,)),
                   Icon(Icons.arrow_forward_ios)
                 ],
               ),

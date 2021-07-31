@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:novosti/components/custemdropdown.dart';
 import 'package:novosti/components/list_news.dart';
+import 'package:novosti/components/loading.dart';
 import 'package:novosti/contants/cusom_text.dart';
+import 'package:novosti/main_bloc/bloc/main_bloc.dart';
+import 'package:novosti/main_bloc/bloc/main_repository.dart';
 import 'package:novosti/models/news.dart';
 import 'package:novosti/screens/splashscreen.dart';
 
@@ -62,9 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     select = List.generate(News.types.length, (index) => false);
     select[0] = true;
+    bloc.add(GetMainEvent());
     super.initState();
   }
 
+  final bloc = MainBloc(MainRepository());
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -143,17 +149,28 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           ),
-          Container(
-            height: height * 0.77,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: News.array.length,
-              itemBuilder: (BuildContext context, index) {
-                return SingleChildScrollView(
-                    child: ListNews(News.array[index]));
-              },
-            ),
+          BlocBuilder<MainBloc, MainState>(
+            bloc: bloc,
+            builder: (context, state) {
+              if (state is MainInitial) {
+                return Loading();
+              } else if (state is MainLoaded) {
+                return Container(
+                  height: height * 0.77,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: state.dataNews.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return SingleChildScrollView(
+                          child: ListNews(state.dataNews[index]));
+                    },
+                  ),
+                );
+              } else {
+                return Center(child: Text("OOps"));
+              }
+            },
           ),
         ],
       ),
