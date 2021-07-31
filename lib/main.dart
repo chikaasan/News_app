@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/components/list_kategory.dart';
 import 'package:news/components/list_news.dart';
 import 'package:news/contants/cusom_text.dart';
 import 'package:news/models/news.dart';
@@ -56,20 +57,38 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.of(context).push(_createRoute());
               },
             ),
-          )
+          ),
         ],
       ),
-      body: Container(
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemCount: News.array.length,
-              itemBuilder: (BuildContext context, index){
-                return SingleChildScrollView(child: ListNews(News.array[index]));
-              },
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            height: 70,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: News.types.length,
+                itemBuilder: (BuildContext context, index) {
+                  return SingleChildScrollView(child: Kategory(News.types[index]));
+                },
               ),
-
+            
           ),
+          Container(
+            height: 600,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: News.array.length,
+                  itemBuilder: (BuildContext context, index){
+                    return SingleChildScrollView(child: ListNews(News.array[index]));
+                  },
+                  ),
+
+              ),
+        ],
+      ),
       
       
     );

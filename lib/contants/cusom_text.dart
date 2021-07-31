@@ -30,6 +30,13 @@ class TaskText {
     fontWeight: FontWeight.w400,
   );
 
+  static TextStyle regular14b = TextStyle(
+    fontFamily: font, 
+    fontSize: 14,
+    color: Color(0xff000000),
+    fontWeight: FontWeight.w400,
+  );
+
   static TextStyle regular16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
