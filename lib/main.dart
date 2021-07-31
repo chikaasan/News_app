@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:novosti/components/custemdropdown.dart';
 import 'package:novosti/components/list_kategory.dart';
 import 'package:novosti/components/list_news.dart';
+import 'package:novosti/components/loading.dart';
 import 'package:novosti/contants/cusom_text.dart';
+import 'package:novosti/main_bloc/bloc/main_bloc.dart';
+import 'package:novosti/main_bloc/bloc/main_repository.dart';
 import 'package:novosti/models/news.dart';
 import 'package:novosti/screens/splashscreen.dart';
 
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key ?key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
   final String? title;
 
@@ -57,7 +61,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  @override
+  void initState() {
+    bloc.add(GetMainEvent());
+    super.initState();
+  }
+  final bloc = MainBloc(MainRepository());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xffE5E5E5),
-        title: Text(" Новости", style: TaskText.regular20, ),
+        title: Text(
+          " Новости",
+          style: TaskText.regular20,
+        ),
         actions: [
           Padding(
               padding: const EdgeInsets.only(right: 20.0),
@@ -77,32 +89,42 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             height: 70,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: News.types.length,
-                itemBuilder: (BuildContext context, index) {
-                  return SingleChildScrollView(child: Kategory(News.types[index]));
-                },
-              ),
-            
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: News.types.length,
+              itemBuilder: (BuildContext context, index) {
+                return SingleChildScrollView(
+                    child: Kategory(News.types[index]));
+              },
+            ),
           ),
-          Container(
-            height: 625,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: News.array.length,
-                  itemBuilder: (BuildContext context, index){
-                    return SingleChildScrollView(child: ListNews(News.array[index]));
-                  },
+          BlocBuilder<MainBloc, MainState>(
+            bloc: bloc,
+            builder: (context, state){
+              if(state is MainInitial) {
+                return Loading();
+              }
+              else if(state is MainLoaded) {
+                return Container(
+                  height: 625,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: state.dataNews.length,
+                    itemBuilder: (BuildContext context, index) {
+                      return SingleChildScrollView(
+                          child: ListNews(state.dataNews[index]));
+                    },
                   ),
-
-              ),
+                );
+              }else {
+                return Center(child: Text("OOps"));
+              }
+            },
+          ),
         ],
       ),
-      
-      
     );
   }
 }

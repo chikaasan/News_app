@@ -1,3 +1,4 @@
+import 'dart:convert';
 class Model {
   String? id;
   String? name;
@@ -55,4 +56,28 @@ class News extends Model {
   ];
 
   static List types = ["Все", "Экономика", "Политика", "Медецина", "Отдых", "Разное"];
+}
+
+List<Modell> modelFromJson(String str) => List<Modell>.from(json.decode(str).map((x) => Modell.fromJson(x)));
+
+String modelToJson(List<Modell> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class Modell {
+    Modell({
+        this.title,
+        this.logo,
+    });
+
+    String? title;
+    String? logo;
+
+    factory Modell.fromJson(Map<String, dynamic> json) => Modell(
+        title: json["title"],
+        logo: json["logo"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "title": title,
+        "logo": logo,
+    };
 }
