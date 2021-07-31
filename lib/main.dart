@@ -1,44 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:news/components/list_kategory.dart';
-import 'package:news/components/list_news.dart';
-import 'package:news/contants/cusom_text.dart';
-import 'package:news/models/news.dart';
-import 'package:news/screens/filter_screen.dart';
+import 'package:novosti/components/custemdropdown.dart';
+import 'package:novosti/components/list_kategory.dart';
+import 'package:novosti/components/list_news.dart';
+import 'package:novosti/contants/cusom_text.dart';
+import 'package:novosti/models/news.dart';
+import 'package:novosti/screens/splashscreen.dart';
 
 void main() {
   runApp(MyApp());
 }
 
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
+// }
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return FutureBuilder(
+      // Replace the 3 second delay with your initialization code:
+      future: Future.delayed(Duration(seconds: 2)),
+      builder: (context, AsyncSnapshot snapshot) {
+        // Show splash screen while waiting for app resources to load:
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(home: Splash());
+        } else {
+          // Loading is done, return the app:
+          return MaterialApp(
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            debugShowCheckedModeBanner: false,
+            home: MyHomePage(title: 'Flutter Demo Home Page'),
+          );
+        }
+      },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key ?key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(" Новости", style: TaskText.regular20, ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(top: 17, right: 20),
-            child: InkWell(
-              child: Text("Фильтр", style: TaskText.regular14,),
-              onTap: () {
-                Navigator.of(context).push(_createRoute());
-              },
-            ),
-          ),
+              padding: const EdgeInsets.only(right: 20.0),
+              child: CustemDropDown()),
         ],
       ),
       body: Column(
@@ -76,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
             
           ),
           Container(
-            height: 600,
+            height: 625,
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
@@ -94,20 +106,20 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-Route _createRoute() {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => FilterScreen(),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(0.0, 1.0);
-      var end = Offset.zero;
-      var curve = Curves.ease;
+// Route _createRoute() {
+//   return PageRouteBuilder(
+//     pageBuilder: (context, animation, secondaryAnimation) => FilterScreen(),
+//     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+//       var begin = Offset(0.0, 1.0);
+//       var end = Offset.zero;
+//       var curve = Curves.ease;
 
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+//       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-}
+//       return SlideTransition(
+//         position: animation.drive(tween),
+//         child: child,
+//       );
+//     },
+//   );
+// }

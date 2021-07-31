@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/contants/cusom_text.dart';
+
 
 class Kategory extends StatefulWidget{
   final String data;
@@ -12,15 +12,18 @@ class Kategory extends StatefulWidget{
 class _Kategory extends State<Kategory> {
   @override
   ValueNotifier<Color> _color = ValueNotifier(Colors.white);
+  ValueNotifier<Color> _colorText = ValueNotifier(Colors.black);
   Widget build(BuildContext context) {
     return Row(
       children: [
         InkWell(
           onTap: () {
             if(_color.value == Colors.white) {
-            _color.value = Colors.green;
+              _colorText.value = Colors.white;
+              _color.value = Color(0xff71C343);
             }else {
               _color.value = Colors.white;
+              _colorText.value = Colors.black;
             }
           },
           child: ValueListenableBuilder(
@@ -32,7 +35,7 @@ class _Kategory extends State<Kategory> {
                 color: _color.value,
                 borderRadius: BorderRadius.circular(20) 
                 ),
-                child: Text(widget.data, style: TaskText.regular14b,),
+                child: Text(widget.data, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: _colorText.value)),
             ),
           )
         ),

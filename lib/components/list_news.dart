@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news/contants/cusom_text.dart';
-import 'package:news/models/news.dart';
-import 'package:news/screens/info_screen.dart';
+import 'package:novosti/contants/cusom_text.dart';
+import 'package:novosti/models/news.dart';
+import 'package:novosti/screens/info_screen.dart';
+
 
 class ListNews extends StatefulWidget{
   final Model array;
@@ -28,7 +29,7 @@ class _ListNews extends State<ListNews> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(widget.array.pictures[0])
+                  image: NetworkImage(widget.array.pictures![0])
                 )
               ),
             ),
@@ -41,7 +42,7 @@ class _ListNews extends State<ListNews> {
                   SizedBox( 
                     height: 50,
                     width: 280,
-                    child: Text(widget.array.name, style: TaskText.regular16, softWrap: true, overflow: TextOverflow.ellipsis,)),
+                    child: Text(widget.array.name!, style: TaskText.regular16, softWrap: true, overflow: TextOverflow.ellipsis,)),
                   Icon(Icons.arrow_forward_ios)
                 ],
               ),

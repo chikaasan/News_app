@@ -37,6 +37,13 @@ class TaskText {
     fontWeight: FontWeight.w400,
   );
 
+  static TextStyle regular14c = TextStyle(
+    fontFamily: font, 
+    fontSize: 14,
+    color: Color(0xffAEAEAE),
+    fontWeight: FontWeight.w400,
+  );
+
   static TextStyle regular16 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
