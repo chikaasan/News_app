@@ -4,12 +4,11 @@ import 'package:novosti/contants/cusom_text.dart';
 import 'package:novosti/models/news.dart';
 import 'package:novosti/screens/info_screen.dart';
 
-
-class ListNews extends StatefulWidget{
+class ListNews extends StatefulWidget {
   final Modell array;
   ListNews(this.array);
   @override
-  _ListNews createState() =>_ListNews();
+  _ListNews createState() => _ListNews();
 }
 
 class _ListNews extends State<ListNews> {
@@ -17,7 +16,7 @@ class _ListNews extends State<ListNews> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         // Navigator.of(context).push(_createRoute(widget.array));
       },
       child: Container(
@@ -27,11 +26,9 @@ class _ListNews extends State<ListNews> {
             Container(
               height: 180,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(widget.array.logo!)
-                )
-              ),
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(widget.array.logo!))),
             ),
             Container(
               height: 80,
@@ -39,16 +36,19 @@ class _ListNews extends State<ListNews> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox( 
-                    height: 50,
-                    width: 280,
-                    child: Text(widget.array.title!, style: TaskText.regular16, softWrap: true, overflow: TextOverflow.ellipsis,)),
+                  SizedBox(
+                      height: 50,
+                      width: 280,
+                      child: Text(
+                        widget.array.title!,
+                        style: TaskText.regular16,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                      )),
                   Icon(Icons.arrow_forward_ios)
                 ],
               ),
-              decoration: BoxDecoration(
-                color: Color(0xffFFFFFF)
-              ),
+              decoration: BoxDecoration(color: Color(0xffFFFFFF)),
             ),
             SizedBox(
               height: 12,
@@ -58,21 +58,4 @@ class _ListNews extends State<ListNews> {
       ),
     );
   }
-}
-Route _createRoute(Model a) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => InfoScreen(a),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(0.0, 1.0);
-      var end = Offset.zero;
-      var curve = Curves.ease;
-
-      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
 }

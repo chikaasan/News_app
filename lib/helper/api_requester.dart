@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 class ApiRequester {
   static String url = "https://hackatonnewsapp.herokuapp.com/api/news/";
@@ -17,7 +16,7 @@ class ApiRequester {
     Dio dio = await initDio();
     try {
       return dio.get(url);
-    }catch (e) {
+    } catch (e) {
       throw Exception(e);
     }
   }
