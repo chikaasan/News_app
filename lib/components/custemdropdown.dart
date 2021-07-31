@@ -54,14 +54,14 @@ class _CustemDropDownState extends State<CustemDropDown> {
         child: DropdownBelow(
       itemWidth: 60,
       itemTextstyle: TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black),
+          fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
       boxTextstyle: TextStyle(
-          fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white54),
+          fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
       boxPadding: EdgeInsets.fromLTRB(13, 12, 13, 12),
       boxWidth: 80,
       icon: Icon(
         Icons.language,
-        color: Colors.white54,
+        color: Colors.black,
       ),
       hint: Text(''),
       value: _selectedTest,
