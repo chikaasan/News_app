@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:novosti/contants/cusom_text.dart';
 import 'package:novosti/models/news.dart';
-import 'package:novosti/screens/info_screen.dart';
 
 class ListNews extends StatefulWidget {
   final Modell array;
