@@ -81,3 +81,6 @@ class Modell {
         "logo": logo,
     };
 }
+
+
+

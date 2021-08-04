@@ -163,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemCount: state.dataNews.length,
                     itemBuilder: (BuildContext context, index) {
                       return SingleChildScrollView(
-                          child: ListNews(state.dataNews[index]));
+                          child: ListNews(state.dataNews[index], index));
                     },
                   ),
                 );

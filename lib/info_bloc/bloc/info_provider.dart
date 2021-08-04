@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:novosti/helper/api_requester.dart';
-import 'package:novosti/models/news.dart';
+import 'package:novosti/models/news_id.dart';
 
-class MainProvider {
-  Future<List<Modell>> getNews() async {
+class InfoProvider {
+  Future<NewsId> getNewsId(String index) async {
     try {
       ApiRequester requester = ApiRequester();
-      Response response = await requester.toGet("news/");
+      print("NEWS ID IS $index");
+      Response response = await requester.toGet("news/$index/");
       if(response.statusCode == 200) {
-        return response.data.map<Modell>((val) => Modell.fromJson(val)).toList();
+        return NewsId.fromJson(response.data);
       }
       throw Exception(response);
     } catch (e) {
