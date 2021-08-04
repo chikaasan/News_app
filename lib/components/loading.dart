@@ -5,10 +5,20 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(
-        backgroundColor: Colors.black,
-      ),
+    return Column(
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.black,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        )
+      ],
     );
   }
 }

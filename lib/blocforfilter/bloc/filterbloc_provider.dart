@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:novosti/helper/api_requester.dart';
-import 'package:novosti/models/news.dart';
+import 'package:novosti/models/filters.dart';
 
-class MainProvider {
-  Future<List<Modell>> getNews() async {
+class FilterProvider {
+  Future<List<Filter>> getFilter() async {
     try {
       ApiRequester requester = ApiRequester();
-      Response response = await requester.toGet("news/");
+      Response response = await requester.toGet("category/");
       if (response.statusCode == 200) {
         return response.data
-            .map<Modell>((val) => Modell.fromJson(val))
+            .map<Filter>((val) => Filter.fromJson(val))
             .toList();
       }
       throw Exception(response);

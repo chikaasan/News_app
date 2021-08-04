@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class ApiRequester {
-  static String url = "https://hackatonnewsapp.herokuapp.com/api/news/";
+  static String url = "https://hackatonnewsapp.herokuapp.com/api/";
 
   Future<Dio> initDio() async {
     return Dio(BaseOptions(

@@ -1,13 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:novosti/blocforfilter/bloc/filterbloc_bloc.dart';
+import 'package:novosti/blocforfilter/bloc/filterbloc_repository.dart';
 import 'package:novosti/models/filters.dart';
-import 'package:novosti/models/news.dart';
 
 class Kategory extends StatefulWidget {
-  // final Filter data;
-
-  Kategory();
+  final List<Filter> filterList;
+  Kategory(this.filterList);
 
   @override
   _Kategory createState() => _Kategory();
@@ -15,36 +13,36 @@ class Kategory extends StatefulWidget {
 
 class _Kategory extends State<Kategory> {
   List<bool> select = [];
+  // final bloc = FilterblocBloc(FilterRepository());
   @override
   void initState() {
-    select = List.generate(Allfilters.types.length, (index) => false);
+    // bloc.add(GetFilterEvent(
+    //     select = List.generate(widget.filterList.length, (index) => false)));
+    select = List.generate(widget.filterList.length, (index) => false);
     select[0] = true;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      height: 70,
-      child: ListView.builder(
+    return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
-        itemCount: Allfilters.types.length,
+        itemCount: widget.filterList.length,
         itemBuilder: (BuildContext context, index) {
           return SingleChildScrollView(
-              child: Row(
+              child: Container(
+                  child: Row(
             children: [
               InkWell(
                 onTap: () {
                   setState(() {
                     if (index != 0) {
                       select[0] = false;
-
                       select[index] = !select[index];
                     } else if (index == 0) {
                       select = List.generate(
-                          Allfilters.types.length, (index) => false);
+                          widget.filterList.length, (index) => false);
                       select[0] = true;
                     } else {
                       select[index] = !select[index];
@@ -54,6 +52,8 @@ class _Kategory extends State<Kategory> {
                       select[0] = true;
                     }
                   });
+                  print(index);
+                  print(select);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
@@ -61,7 +61,7 @@ class _Kategory extends State<Kategory> {
                       color: select[index] ? Color(0xff71C343) : Colors.white,
                       borderRadius: BorderRadius.circular(20)),
                   child: Text(
-                    Allfilters.types[index].name!,
+                    widget.filterList[index].name!,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -74,9 +74,7 @@ class _Kategory extends State<Kategory> {
                 width: 8,
               )
             ],
-          ));
-        },
-      ),
-    );
+          )));
+        });
   }
 }

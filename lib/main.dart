@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:novosti/blocforfilter/bloc/filterbloc_bloc.dart';
+import 'package:novosti/blocforfilter/bloc/filterbloc_repository.dart';
 import 'package:novosti/components/custemdropdown.dart';
 import 'package:novosti/components/list_news.dart';
 import 'package:novosti/components/loading.dart';
 import 'package:novosti/contants/cusom_text.dart';
 import 'package:novosti/main_bloc/bloc/main_bloc.dart';
 import 'package:novosti/main_bloc/bloc/main_repository.dart';
-import 'package:novosti/models/news.dart';
+
 import 'package:novosti/screens/splashscreen.dart';
 
 import 'components/list_kategory.dart';
-import 'models/filters.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,13 +62,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Filter> data = Allfilters.types;
+  // final List<Filter> data = Allfilters.types;
   List<bool> select = [];
   @override
   void initState() {
+    bloc1.add(GetFilterEvent());
     bloc.add(GetMainEvent());
     super.initState();
   }
+
+  final bloc1 = FilterblocBloc(FilterRepository());
 
   final bloc = MainBloc(MainRepository());
   @override
@@ -90,10 +94,20 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              height: 70,
-              child: Kategory()),
+          BlocBuilder<FilterblocBloc, FilterblocState>(
+            bloc: bloc1,
+            builder: (context, state) {
+              if (state is FilterInitial) {
+                return Loading();
+              } else if (state is FilterLoaded) {
+                return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    height: 70,
+                    child: Kategory(state.dataFilter));
+              }
+              return Center(child: Text("OOps"));
+            },
+          ),
           BlocBuilder<MainBloc, MainState>(
             bloc: bloc,
             builder: (context, state) {
