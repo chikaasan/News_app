@@ -1,22 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:novosti/contants/cusom_text.dart';
+import 'package:novosti/info_bloc/bloc/info_bloc.dart';
+import 'package:novosti/info_bloc/bloc/info_repository.dart';
 import 'package:novosti/models/news.dart';
+import 'package:novosti/screens/info_screen.dart';
 
 class ListNews extends StatefulWidget {
   final Modell array;
-  ListNews(this.array);
+  final int index;
+  ListNews(this.array, this.index);
   @override
   _ListNews createState() => _ListNews();
 }
 
 class _ListNews extends State<ListNews> {
+  final blocc = InfoBloc(InfoRepository());
   @override
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).push(_createRoute(widget.array));
+        blocc.add(GetInfoEvent(widget.index));
+        Navigator.of(context).push(_createRoute(widget.index));
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -57,4 +63,22 @@ class _ListNews extends State<ListNews> {
       ),
     );
   }
+}
+
+Route _createRoute(int id) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => InfoScreen(id: id),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

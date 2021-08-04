@@ -164,3 +164,6 @@ class Modell {
         "logo": logo,
       };
 }
+
+
+
