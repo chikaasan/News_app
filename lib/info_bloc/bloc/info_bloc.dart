@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:novosti/info_bloc/bloc/info_repository.dart';
 import 'package:novosti/models/news_id.dart';
-import 'package:novosti/screens/info_screen.dart';
 
 part 'info_event.dart';
 part 'info_state.dart';

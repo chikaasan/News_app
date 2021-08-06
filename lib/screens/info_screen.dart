@@ -5,7 +5,6 @@ import 'package:novosti/components/picture.dart';
 import 'package:novosti/contants/cusom_text.dart';
 import 'package:novosti/info_bloc/bloc/info_bloc.dart';
 import 'package:novosti/info_bloc/bloc/info_repository.dart';
-import 'package:novosti/models/news.dart';
 
 class InfoScreen extends StatelessWidget {
   InfoScreen({this.id});

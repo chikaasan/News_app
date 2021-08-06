@@ -139,31 +139,36 @@ class News extends Model {
   ];
 }
 
-List<Modell> modelFromJson(String str) =>
+List<Modell> modellFromJson(String str) =>
     List<Modell>.from(json.decode(str).map((x) => Modell.fromJson(x)));
 
-String modelToJson(List<Modell> data) =>
+String modellToJson(List<Modell> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Modell {
   Modell({
+    this.id,
     this.title,
     this.logo,
+    this.filter,
   });
 
+  int? id;
   String? title;
   String? logo;
+  String? filter;
 
   factory Modell.fromJson(Map<String, dynamic> json) => Modell(
+        id: json["id"],
         title: json["title"],
         logo: json["logo"],
+        filter: json["filter"],
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "title": title,
         "logo": logo,
+        "filter": filter,
       };
 }
-
-
-

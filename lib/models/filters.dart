@@ -21,6 +21,10 @@
 // //
 // //     final filter = filterFromJson(jsonString);
 
+// To parse this JSON data, do
+//
+//     final filter = filterFromJson(jsonString);
+
 import 'dart:convert';
 
 List<Filter> filterFromJson(String str) =>
@@ -31,16 +35,20 @@ String filterToJson(List<Filter> data) =>
 
 class Filter {
   Filter({
+    this.id,
     this.name,
   });
 
+  int? id;
   String? name;
 
   factory Filter.fromJson(Map<String, dynamic> json) => Filter(
+        id: json["id"],
         name: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
       };
 }

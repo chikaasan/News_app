@@ -7,7 +7,7 @@ class MainProvider {
   Future<List<Modell>> getNews(String lang) async {
     try {
       ApiRequester requester = ApiRequester();
-      Response response = await requester.toGet("news/?filter=&lang=1");
+      Response response = await requester.toGet("news/?filter=&lang=$lang");
       if (response.statusCode == 200) {
         return response.data
             .map<Modell>((val) => Modell.fromJson(val))
