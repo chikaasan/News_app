@@ -27,6 +27,8 @@ class _ListNews extends State<ListNews> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: 180,
@@ -41,14 +43,17 @@ class _ListNews extends State<ListNews> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                      height: 50,
+                  Container(
+                      alignment: Alignment.centerLeft,
                       width: 280,
-                      child: Text(
-                        widget.array.title!,
-                        style: TaskText.regular16,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
+                      height: 50,
+                      child: Flexible(
+                        child: Text(
+                          widget.array.title!,
+                          style: TaskText.regular16a,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       )),
                   Icon(Icons.arrow_forward_ios)
                 ],

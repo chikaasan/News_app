@@ -10,7 +10,7 @@ part 'info_event.dart';
 part 'info_state.dart';
 
 class InfoBloc extends Bloc<InfoEvent, InfoState> {
-  InfoRepository repository = InfoRepository(); 
+  InfoRepository repository = InfoRepository();
   InfoBloc(this.repository) : super(InfoInitial());
 
   @override
@@ -18,13 +18,13 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
     InfoEvent event,
   ) async* {
     try {
-      if(event is GetInfoEvent) {
+      if (event is GetInfoEvent) {
         yield InfoInitial();
         NewsId dataId = await repository.getNewsId((event.index).toString());
-        print(dataId);
+
         yield InfoLoaded(dataId);
       }
-    }catch (e) {
+    } catch (e) {
       yield InfoError(Exception(e));
     }
   }

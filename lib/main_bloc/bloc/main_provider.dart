@@ -4,10 +4,10 @@ import 'package:novosti/models/filters.dart';
 import 'package:novosti/models/news.dart';
 
 class MainProvider {
-  Future<List<Modell>> getNews() async {
+  Future<List<Modell>> getNews(String lang) async {
     try {
       ApiRequester requester = ApiRequester();
-      Response response = await requester.toGet("news/");
+      Response response = await requester.toGet("news/?filter=&lang=1");
       if (response.statusCode == 200) {
         return response.data
             .map<Modell>((val) => Modell.fromJson(val))
@@ -21,10 +21,10 @@ class MainProvider {
 }
 
 class FilterProvider {
-  Future<List<Filter>> getFilter() async {
+  Future<List<Filter>> getFilter(String lang) async {
     try {
       ApiRequester requester = ApiRequester();
-      Response response = await requester.toGet("category/?lang=RU");
+      Response response = await requester.toGet("category/?lang=$lang");
       if (response.statusCode == 200) {
         return response.data
             .map<Filter>((val) => Filter.fromJson(val))

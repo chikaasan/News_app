@@ -21,9 +21,9 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     try {
       if (event is GetMainEvent) {
         yield MainInitial();
-        List<Filter> dataFilter = await repository2.getFilter();
+        List<Filter> dataFilter = await repository2.getFilter(event.lang);
         print(dataFilter);
-        List<Modell> dataNews = await repository.getNews();
+        List<Modell> dataNews = await repository.getNews(event.lang);
         print(dataNews);
         yield MainLoaded(dataNews, dataFilter);
       }

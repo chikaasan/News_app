@@ -17,6 +17,7 @@ class InfoScreen extends StatelessWidget {
         backgroundColor: Color(0xffF6F6F6),
         appBar: AppBar(
           elevation: 0,
+          iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Color(0xffF6F6F6),
         ),
         body: Container(
@@ -27,46 +28,50 @@ class InfoScreen extends StatelessWidget {
               if (state is InfoInitial) {
                 return Container(child: Loading());
               } else if (state is InfoLoaded) {
-                return Column(
-                  children: [
-                    SizedBox(
-                      child: Text(
-                        state.data.headerTitle!,
-                        style: TaskText.regular16a,
-                        softWrap: true,
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        child: Text(
+                          state.data.headerTitle!,
+                          style: TaskText.regular16a,
+                          softWrap: true,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      child: Text(
-                        state.data.addDate!,
-                        style: TaskText.regular14c,
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: state.data.image!.length,
-                        itemBuilder: (BuildContext context, index) {
-                          return SingleChildScrollView(
-                            child: Picture(state.data.image![index].url!),
-                          );
-                        }),
-                    Expanded(
-                      child: Container(
+                      SizedBox(
+                        child: Text(
+                          "Дата: " + state.data.addDate!,
+                          style: TaskText.regular14c,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: state.data.image!.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return SingleChildScrollView(
+                              child: Picture(state.data.image![index].url!),
+                            );
+                          }),
+                      Container(
                         child: Text(
                           state.data.text!,
                           style: TaskText.regular14a,
                           softWrap: true,
                         ),
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        height: 40,
+                      )
+                    ],
+                  ),
                 );
               } else {
                 return Center(child: Text("OOps"));

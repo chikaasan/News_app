@@ -6,9 +6,8 @@ class InfoProvider {
   Future<NewsId> getNewsId(String index) async {
     try {
       ApiRequester requester = ApiRequester();
-      print("NEWS ID IS $index");
       Response response = await requester.toGet("news/$index/");
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         return NewsId.fromJson(response.data);
       }
       throw Exception(response);
