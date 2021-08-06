@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:novosti/blocforfilter/bloc/filterbloc_bloc.dart';
-import 'package:novosti/blocforfilter/bloc/filterbloc_repository.dart';
 import 'package:novosti/components/custemdropdown.dart';
 import 'package:novosti/components/list_news.dart';
 import 'package:novosti/components/loading.dart';
@@ -66,14 +64,11 @@ class _MyHomePageState extends State<MyHomePage> {
   List<bool> select = [];
   @override
   void initState() {
-    bloc1.add(GetFilterEvent());
     bloc.add(GetMainEvent());
     super.initState();
   }
 
-  final bloc1 = FilterblocBloc(FilterRepository());
-
-  final bloc = MainBloc(MainRepository());
+  final bloc = MainBloc(MainRepository(), FilterRepository());
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -94,15 +89,15 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-          BlocBuilder<FilterblocBloc, FilterblocState>(
-            bloc: bloc1,
+          BlocBuilder<MainBloc, MainState>(
+            bloc: bloc,
             builder: (context, state) {
-              if (state is FilterInitial) {
+              if (state is MainInitial) {
                 return Loading();
-              } else if (state is FilterLoaded) {
+              } else if (state is MainLoaded) {
                 return Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    height: 70,
+                    height: height * 0.07,
                     child: Kategory(state.dataFilter));
               }
               return Center(child: Text("OOps"));

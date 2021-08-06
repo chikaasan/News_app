@@ -10,9 +10,8 @@ class CustemDropDown extends StatefulWidget {
 
 class _CustemDropDownState extends State<CustemDropDown> {
   List _testList = [
-    {'no': 1, 'keyword': 'RU'},
-    {'no': 2, 'keyword': 'KG'},
-    {'no': 3, 'keyword': 'EN'}
+    {'keyword': 'RU'},
+    {'keyword': 'KG'},
   ];
   List<DropdownMenuItem<Object?>> _dropdownTestItems = [];
   var _selectedTest;

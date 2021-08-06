@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:novosti/blocforfilter/bloc/filterbloc_bloc.dart';
-import 'package:novosti/blocforfilter/bloc/filterbloc_repository.dart';
+
 import 'package:novosti/models/filters.dart';
 
 class Kategory extends StatefulWidget {
@@ -46,14 +45,11 @@ class _Kategory extends State<Kategory> {
                       select[0] = true;
                     } else {
                       select[index] = !select[index];
-                      print("object");
                     }
                     if (select.every((element) => element == false)) {
                       select[0] = true;
                     }
                   });
-                  print(index);
-                  print(select);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
