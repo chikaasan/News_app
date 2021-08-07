@@ -3,7 +3,7 @@ import 'package:novosti/models/filters.dart';
 import 'package:novosti/models/news.dart';
 
 class MainRepository {
-  Future<List<Modell>> getNews(String lang) {
+  Future<List<Modell>> getNews(String lang, {int? id}) {
     MainProvider provider = MainProvider();
     return provider.getNews(lang);
   }

@@ -5,6 +5,6 @@ abstract class MainEvent {}
 
 class GetMainEvent extends MainEvent {
   final String lang;
-
-  GetMainEvent(this.lang);
+  final int? id;
+  GetMainEvent(this.lang, {this.id});
 }

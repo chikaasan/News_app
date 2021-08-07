@@ -82,5 +82,5 @@ class _CustemDropDownState extends State<CustemDropDown> {
 }
 
 class Lang {
-  static String? lang = "RU";
+  static String lang = "RU";
 }

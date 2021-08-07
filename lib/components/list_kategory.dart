@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:novosti/components/custemdropdown.dart';
+import 'package:novosti/logic/newmassiv.dart';
+import 'package:novosti/main_bloc/bloc/main_bloc.dart';
 
 import 'package:novosti/models/filters.dart';
+import 'package:novosti/models/news.dart';
 
 class Kategory extends StatefulWidget {
   final List<Filter> filterList;
-  Kategory(this.filterList);
+  final List<Modell> datalist;
+  Kategory(this.filterList, this.datalist);
 
   @override
   _Kategory createState() => _Kategory();
@@ -49,6 +55,9 @@ class _Kategory extends State<Kategory> {
                     if (select.every((element) => element == false)) {
                       select[0] = true;
                     }
+                    BlocProvider.of<MainBloc>(context).add(GetMainEvent(
+                        Lang.lang,
+                        id: widget.filterList[index].id));
                   });
                 },
                 child: Container(

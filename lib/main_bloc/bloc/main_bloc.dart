@@ -23,7 +23,8 @@ class MainBloc extends Bloc<MainEvent, MainState> {
         yield MainInitial();
         List<Filter> dataFilter = await repository2.getFilter(event.lang);
         print(dataFilter);
-        List<Modell> dataNews = await repository.getNews(event.lang);
+        List<Modell> dataNews =
+            await repository.getNews(event.lang, id: event.id);
         print(dataNews);
         yield MainLoaded(dataNews, dataFilter);
       }
