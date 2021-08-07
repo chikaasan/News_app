@@ -41,6 +41,7 @@ class Filter {
 
   int? id;
   String? name;
+  bool active = false;
 
   factory Filter.fromJson(Map<String, dynamic> json) => Filter(
         id: json["id"],

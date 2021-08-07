@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:novosti/components/custemdropdown.dart';
-import 'package:novosti/logic/newmassiv.dart';
 import 'package:novosti/main_bloc/bloc/main_bloc.dart';
 
 import 'package:novosti/models/filters.dart';
-import 'package:novosti/models/news.dart';
+import 'package:novosti/screens/first_screen.dart';
 
 class Kategory extends StatefulWidget {
   final List<Filter> filterList;
-  final List<Modell> datalist;
-  Kategory(this.filterList, this.datalist);
+  Kategory(this.filterList);
 
   @override
   _Kategory createState() => _Kategory();
@@ -49,15 +46,29 @@ class _Kategory extends State<Kategory> {
                       select = List.generate(
                           widget.filterList.length, (index) => false);
                       select[0] = true;
+                    } else if (index == 0) {
+                      select = List.generate(
+                          widget.filterList.length, (index) => false);
+                      select[0] = true;
                     } else {
                       select[index] = !select[index];
                     }
                     if (select.every((element) => element == false)) {
                       select[0] = true;
                     }
-                    BlocProvider.of<MainBloc>(context).add(GetMainEvent(
+                    if (index == 0) {
+                      BlocProvider.of<MainBloc>(context).add(GetMainEvent(
                         Lang.lang,
-                        id: widget.filterList[index].id));
+                      ));
+                    } else if (index != 0) {
+                      BlocProvider.of<MainBloc>(context).add(GetMainEvent(
+                          Lang.lang,
+                          id: widget.filterList[index].id));
+                    } else if (widget.filterList[index].id ==
+                        widget.filterList[index].id) {
+                      BlocProvider.of<MainBloc>(context)
+                          .add(GetMainEvent(Lang.lang));
+                    }
                   });
                 },
                 child: Container(

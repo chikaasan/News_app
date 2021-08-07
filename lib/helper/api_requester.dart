@@ -15,6 +15,7 @@ class ApiRequester {
   Future<Response> toGet(String url) async {
     Dio dio = await initDio();
     try {
+      print("URL llllll: $url");
       return dio.get(url);
     } catch (e) {
       throw Exception(e);
